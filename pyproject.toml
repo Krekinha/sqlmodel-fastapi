@@ -10,6 +10,8 @@ python = "^3.12"
 fastapi = "^0.111.0"
 uvicorn = {extras = ["standard"], version = "^0.30.1"}
 sqlmodel = "^0.0.19"
+requests = "^2.32.3"
+pytest = "^8.2.2"
 
 
 [tool.poetry.group.dev.dependencies]
@@ -21,7 +23,7 @@ ruff = "^0.4.10"
 line-length = 79
 extend-select = []
 extend-exclude = ["migrations"]
-ignore = ["F401", "F841"]
+ignore = ["F401", "F841", "PLR2004" ]
 show-fixes = true
 
 [tool.ruff.lint]
@@ -31,8 +33,13 @@ select = ["I", "F", "E", "W", "PL", "PT"]
 [tool.ruff.format]
 preview = true
 
+[tool.pytest.ini_options]
+pythonpath = "."
+addopts = "-p no:warnings"
+
 [tool.taskipy.tasks]
 run = "fastapi dev sqlmodel_fastapi/main.py"
+test = "pytest -vv"
 
 [build-system]
 requires = ["poetry-core"]
